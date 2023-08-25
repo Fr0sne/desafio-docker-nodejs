@@ -4,17 +4,16 @@ const { faker } = require("@faker-js/faker")
 
 
 var connection = mysql.createConnection({
-  host     : 'mysql',
-  user     : 'root',
-  password : 'd3safio-n0d3js',
-  database : 'desafio-nodejs-db'
+  host: 'mysql',
+  user: 'root',
+  password: 'd3safio-n0d3js',
+  database: 'desafio-nodejs-db'
 });
 
 connection.connect()
 
 const app = http.createServer(async (request, response) => {
-  if(request.method === 'GET' && request.url === '/'){
-    console.log(request.url)
+  if (request.method === 'GET' && request.url === '/') {
     connection.query("SELECT * FROM people", async (err, rows, fields) => {
       const names = rows.map(i => i.nome);
       const randomName = faker.person.firstName();

@@ -4,7 +4,7 @@ WORKDIR /usr/app
 
 COPY . .
 
-COPY ./node/wait-for-it.sh .
+RUN mv /usr/app/src/* /usr/app/
 
 RUN chmod +x wait-for-it.sh
 

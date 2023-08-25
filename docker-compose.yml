@@ -6,7 +6,7 @@ services:
   app:
     container_name: nodejs
     build:
-      context: ./
+      context: ./node
       dockerfile: dockerfile.nodejs
     ports:
       - 3000:3000
@@ -25,14 +25,14 @@ services:
       - MYSQL_DATABASE=desafio-nodejs-db
     tty: true
     build:
-      context: ./
+      context: ./mysql
       dockerfile: dockerfile.mysql
   nginx:
     container_name: nginx
     depends_on:
       - app
     build:
-      context: ./
+      context: ./nginx
       dockerfile: dockerfile.nginx
     ports:
       - 80:80
