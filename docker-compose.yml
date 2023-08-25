@@ -1,0 +1,40 @@
+version: "3"
+networks:
+  desafio_nodejs_network:
+    driver: bridge
+services:
+  app:
+    container_name: nodejs
+    build:
+      context: ./
+      dockerfile: dockerfile.nodejs
+    ports:
+      - 3000:3000
+    networks:
+      - desafio_nodejs_network
+    depends_on:
+      - mysql
+  mysql:
+    container_name: mysql
+    ports:
+      - 3306:3306
+    networks:
+      - desafio_nodejs_network
+    environment:
+      - MYSQL_ROOT_PASSWORD=d3safio-n0d3js
+      - MYSQL_DATABASE=desafio-nodejs-db
+    tty: true
+    build:
+      context: ./
+      dockerfile: dockerfile.mysql
+  nginx:
+    container_name: nginx
+    depends_on:
+      - app
+    build:
+      context: ./
+      dockerfile: dockerfile.nginx
+    ports:
+      - 80:80
+    networks:
+      - desafio_nodejs_network

@@ -1,0 +1,15 @@
+FROM node
+
+WORKDIR /usr/app
+
+COPY . .
+
+COPY ./node/wait-for-it.sh .
+
+RUN chmod +x wait-for-it.sh
+
+RUN npm install
+
+EXPOSE 3000
+
+CMD ["./wait-for-it.sh", "mysql:3306", "--", "node", "index.js"]
